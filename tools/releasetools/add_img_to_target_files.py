@@ -460,19 +460,19 @@ def AddImagesToTargetFiles(filename):
   if has_vendor:
     banner("vendor")
     AddVendor(output_zip)
-  banner("userdata")
-  AddUserdata(output_zip)
-  banner("extrauserdata")
-  AddUserdataExtra(output_zip)
-  banner("cache")
-  AddCache(output_zip)
-  if has_oem:
-    banner("oem")
-    AddOem(output_zip)
+  if not OPTIONS.is_signing:
+    banner("userdata")
+    AddUserdata(output_zip)
+    banner("cache")
+    AddCache(output_zip)
+  if OPTIONS.info_dict.get("board_bpt_enable", None) == "true":
+    banner("partition-table")
+    AddPartitionTable(output_zip)
 
-
-  # For devices using A/B update, copy over images from RADIO/ to IMAGES/ and
-  # make sure we have all the needed images ready under IMAGES/.
+  # For devices using A/B update, copy over images from RADIO/ and/or
+  # VENDOR_IMAGES/ to IMAGES/ and make sure we have all the needed
+  # images ready under IMAGES/. All images should have '.img' as extension.
+  banner("radio")
   ab_partitions = os.path.join(OPTIONS.input_tmp, "META", "ab_partitions.txt")
   if os.path.exists(ab_partitions):
     with open(ab_partitions, 'r') as f:
