@@ -86,7 +86,7 @@ else
 
 $(call project-set-path,qcom-audio,hardware/qcom/audio/default)
 $(call project-set-path,qcom-display,hardware/qcom/display/$(TARGET_BOARD_PLATFORM))
-$(call project-set-path,qcom-media,hardware/qcom/media/default)
+$(call project-set-path,qcom-media,hardware/qcom/media)
 
 $(call project-set-path,CAMERA,hardware/qcom/camera)
 $(call project-set-path,GPS,hardware/qcom/gps)
